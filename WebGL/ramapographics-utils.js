@@ -1,6 +1,7 @@
 /* ramapo-utils.js (c) 2023 Sourav Dutta
    Report any bug at sdutta1@ramapo.edu and sourav@siu.edu
-   Bind shaders and buffer objects
+   Shader and buffer objects integration
+   https://github.com/souravduttaIT/graphics/blob/main/WebGL/ramapographics-utils.js
 */ 
 
 function ramapoShaderBufferBinder(gl, vertices, vshader, fshader){
