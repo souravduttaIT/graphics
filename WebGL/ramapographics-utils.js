@@ -5,29 +5,23 @@
 */ 
 
 function ramapoShaderBufferBinder(gl, vertices, vshader, fshader){
-		vertex_buffer = ramapoBufferObject(gl, vertices);
-		shaderProgram = ramapoShaders(gl, vshader, fshader);
+	vertex_buffer = ramapoBufferObject(gl, vertices);
+	shaderProgram = ramapoShaders(gl, vshader, fshader);
         gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
         var coord = gl.getAttribLocation(shaderProgram, "coordinates");
 
-		 //refer this for inputs: https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/vertexAttribPointer
+	//refer this for inputs: https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/vertexAttribPointer
         gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(coord);	
 		
-		return gl.NO_ERROR;
+	return gl.NO_ERROR;
 }
 
 function ramapoBufferObject(gl, vertices){
-		// Create an empty buffer object to store the vertex buffer
+	
          var vertex_buffer = gl.createBuffer();
-
-         //Bind appropriate array buffer to it
          gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
-
-         // Pass the vertex data to the buffer
          gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-
-         // Unbind the buffer
          gl.bindBuffer(gl.ARRAY_BUFFER, null);
 		 
 	return vertex_buffer;
@@ -48,17 +42,17 @@ function ramapoShaders(gl, vshader, fshader){
 
 function createProgram(gl, vshader, fshader) {
   // Create shader object
-  var vertexShader = loadShader(gl, gl.VERTEX_SHADER, vshader);
-  var fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fshader);
-  if (!vertexShader || !fragmentShader) {
-    return null;
-  }
+	var vertexShader = loadShader(gl, gl.VERTEX_SHADER, vshader);
+  	var fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fshader);
+  	if (!vertexShader || !fragmentShader) {
+    		return null;
+  	}
 
   // Create a program object
   var program = gl.createProgram();
-  if (!program) {
-    return null;
-  }
+ 	if (!program) {
+    		return null;
+  	}
 
   // Attach the shader objects
   gl.attachShader(program, vertexShader);
@@ -70,11 +64,11 @@ function createProgram(gl, vshader, fshader) {
   // Check the result of linking
   var linked = gl.getProgramParameter(program, gl.LINK_STATUS);
   if (!linked) {
-    var error = gl.getProgramInfoLog(program);
-    console.log('Failed to link program: ' + error);
-    gl.deleteProgram(program);
-    gl.deleteShader(fragmentShader);
-    gl.deleteShader(vertexShader);
+  	var error = gl.getProgramInfoLog(program);
+    	console.log('Failed to link program: ' + error);
+    	gl.deleteProgram(program);
+    	gl.deleteShader(fragmentShader);
+    	gl.deleteShader(vertexShader);
     return null;
   }
   return program;
@@ -84,8 +78,8 @@ function loadShader(gl, type, source) {
   // Create shader object
   var shader = gl.createShader(type);
   if (shader == null) {
-    console.log('unable to create shader');
-    return null;
+  	console.log('unable to create shader');
+    	return null;
   }
 
   // Set the shader program
@@ -97,10 +91,10 @@ function loadShader(gl, type, source) {
   // Check the result of compilation
   var compiled = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
   if (!compiled) {
-    var error = gl.getShaderInfoLog(shader);
-    console.log('Failed to compile shader: ' + error);
-    gl.deleteShader(shader);
-    return null;
+  	var error = gl.getShaderInfoLog(shader);
+    	console.log('Failed to compile shader: ' + error);
+    	gl.deleteShader(shader);
+    	return null;
   }
 
   return shader;
